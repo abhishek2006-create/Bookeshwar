@@ -3,294 +3,337 @@ import "../style/body.css";
 import img from "../assets/board.png";
 import img1 from "../assets/B1.jpg";
 import img2 from "../assets/B2.jpg";
-import logo from "../assets/logo.png";
 
 export default function Body() {
-  const [darkMode, SetdarkMode] = useState(false);
-  const [select, Setselect] = useState(null);
-  const [showReport, setShowReport] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
+  const [selectedMeeting, setSelectedMeeting] = useState(null);
+  const [showSupportForm, setShowSupportForm] = useState(false);
 
-  function DarkMode() {
-    SetdarkMode(!darkMode);
+  function toggleTheme() {
+    setDarkMode(!darkMode);
   }
 
-  function selection(value) {
-    Setselect(select === value ? null : value);
+  function handleSelectMeeting(value) {
+    setSelectedMeeting(selectedMeeting === value ? null : value);
   }
+
   return (
     <>
-      <div id="container" className={darkMode ? "dark-theme" : ""}>
-        <div className="sidebar">
-          <div className="tab-table">
-            <p><img src={logo}/> Bookeshwar</p>
-            {["Dashboard", "Rooms", "Bookings", "Reports"].map((tab, index) => (
-              <div className="tab-box" key={index}>
-                <a className="tab" href={`#${tab}`}>
+      <div id="app-container" className={darkMode ? "theme-dark" : "theme-light"}>
+        <aside className="app-sidebar">
+          <div className="sidebar-brand">
+            <div className="brand-logo"></div>
+            <p>SpaceSync</p>
+          </div>
+          <nav className="nav-menu">
+            {["Overview", "Spaces", "Reservations", "Support"].map((tab, index) => (
+              <div className="nav-item" key={index}>
+                <a className="nav-link" href={`#${tab}`}>
                   {tab}
                 </a>
               </div>
             ))}
-          </div>
-          <div className="buttons">
-            <button onClick={DarkMode}>
-              {darkMode ? "Light Mode" : "Dark Mode"}
+          </nav>
+          <div className="sidebar-footer">
+            <button className="theme-toggle-btn" onClick={toggleTheme}>
+              {darkMode ? "☀️ Light Mode" : "🌙 Dark Mode"}
             </button>
-            <div>
-              <p>Settings</p>
+            <div className="settings-link">
+              <p>⚙️ Preferences</p>
             </div>
           </div>
-        </div>
+        </aside>
 
-        <div className="main-body">
-          <div className="body">
-            <div id="Dashboard">
-              <header>Dashboard</header>
-              <div className="line"></div>
-              <div className="alpha">
-                <h2>Upcoming Booking</h2>
-                <div className="head">
-                  <h4>Room Name</h4>
-                  <h4>Date</h4>
-                  <h4>Time From</h4>
-                  <h4>Time To</h4>
-                  <h4>BooKing</h4>
-                  <div />
-                </div>
-                <hr />
-                <div className="head">
-                  <p>L-01</p>
-                  <p>17 March 2026</p>
-                  <p>2:30 PM</p>
-                  <p>3:30 PM</p>
-                  <div className="btn">
-                    <p onClick={() => selection("A")}>
-                      {select === "A" ? "Reject" : "Select"}
-                    </p>
-                    <p>{select === "A" ? "selected" : "rejected"}</p>
+        <main className="app-content">
+          <div className="content-wrapper">
+            {/* Overview Section */}
+            <section id="Overview" className="content-section">
+              <header className="section-header">
+                <h1>Overview</h1>
+                <p className="subtitle">Welcome back! Here are your upcoming events.</p>
+              </header>
+              <div className="data-grid-container">
+                <h2>Pending Approvals</h2>
+                <div className="data-grid">
+                  <div className="grid-head-row">
+                    <h4>Space</h4>
+                    <h4>Date</h4>
+                    <h4>Start</h4>
+                    <h4>End</h4>
+                    <h4>Action</h4>
                   </div>
-                </div>
-                <hr />
-                <div className="head">
-                  <p>L-02</p>
-                  <p>19 March 2026</p>
-                  <p>8:30 AM</p>
-                  <p>9:30 AM</p>
-                  <div className="btn">
-                    <p onClick={() => selection("B")}>
-                      {select === "B" ? "Reject" : "Select"}
-                    </p>
-                    <p>{select === "B" ? "selected" : "rejected"}</p>
-                  </div>
-                </div>
-                <hr />
-                <div className="head">
-                  <p>L-03</p>
-                  <p>21 March 2026</p>
-                  <p>9:30 AM</p>
-                  <p>10:30 AM</p>
-                  <div className="btn">
-                    <p onClick={() => selection("C")}>
-                      {select === "C" ? "Reject" : "Select"}
-                    </p>
-                    <p>{select === "C" ? "selected" : "rejected"}</p>
-                  </div>
-                </div>
-                <hr />
-              </div>
-            </div>
-            <div id="Rooms">
-              <header>Rooms</header>
-              <div className="line1"></div>
-              <p>Find Meeting Room for your taste and needs.</p>
-
-              <div className="prnt">
-                <div className="R">
-                  <h3>Galaxy</h3>
-                  <img src={img} alt="room" />
-
-                  <h4>Description</h4>
-                  <p className="desc">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  </p>
-
-                  <h4>Details</h4>
-
-                  <div className="details">
-                    <div className="box">
-                      <p>Location</p>
-                      <span>14th Floor</span>
-                    </div>
-
-                    <div className="box">
-                      <p>Capacity</p>
-                      <span>7</span>
-                    </div>
-
-                    <div className="box">
-                      <p>Equipment</p>
-                      <span>None</span>
-                    </div>
-                  </div>
-
-                  <button className="book">Book Room</button>
-                </div>
-
-                <div className="R">
-                  <h3>Antilia</h3>
-                  <img src={img1} alt="room" />
-                  <h4>Details</h4>
-
-                  <div className="details">
-                    <div className="box">
-                      <p>Location</p>
-                      <span>10th Floor</span>
-                    </div>
-
-                    <div className="box">
-                      <p>Capacity</p>
-                      <span>14</span>
-                    </div>
-
-                    <div className="box">
-                      <p>Equipment</p>
-                      <span>None</span>
-                    </div>
-                  </div>
-
-                  <button className="book">Book Room</button>
-                </div>
-
-                <div className="R">
-                  <h3>Mannat</h3>
-                  <img src={img2} alt="room" />
-                  <h4>Details</h4>
-
-                  <div className="details">
-                    <div className="box">
-                      <p>Location</p>
-                      <span>9th Floor</span>
-                    </div>
-
-                    <div className="box">
-                      <p>Capacity</p>
-                      <span>5</span>
-                    </div>
-
-                    <div className="box">
-                      <p>Equipment</p>
-                      <span>None</span>
-                    </div>
-                  </div>
-
-                  <button className="book">Book Room</button>
-                </div>
-              </div>
-            </div>
-<div id="Bookings" >
-    <header>Bookings</header>
-    <div className="line"></div>
-            <div class="recent-bookings">
-              <div class="top-bar">
-                <h2>Recent Bookings</h2>
-
-                <div class="search-box">
-                  <input type="text" placeholder="Search..." />
-                </div>
-              </div>
-
-              <div class="table-wrapper">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Room Name</th>
-                      <th>Date</th>
-                      <th>Time from</th>
-                      <th>Time To</th>
-                      <th>Status</th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    <tr>
-                      <td>Board Room</td>
-                      <td>23 August 2026</td>
-                      <td>2:00 PM</td>
-                      <td>3:00 PM</td>
-                      <td class="status completed">Completed</td>
-                    </tr>
-
-                    <tr>
-                      <td>Gyoza</td>
-                      <td>13 July 2026</td>
-                      <td>3:00 PM</td>
-                      <td>4:00 PM</td>
-                      <td class="status cancelled">Cancelled</td>
-                    </tr>
-
-                    <tr>
-                      <td>Board Room</td>
-                      <td>2 July 2026</td>
-                      <td>4:00 PM</td>
-                      <td>5:00 PM</td>
-                      <td class="status completed">Completed</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-</div>
-            <div id="Reports">
-              <header>Reports</header>
-<button className="open-report-btn" onClick={() => setShowReport(true)}>
-  Open Report Form
-</button>
-              {showReport && (
-                <div className="report-overlay">
-                  <div className="report-box">
-                    <div className="report-header">
-                      <h2>Report Issue</h2>
-
-                      <button
-                        className="close-btn"
-                        onClick={() => setShowReport(false)}
+                  <div className="grid-row">
+                    <p className="highlight">Nexus Boardroom</p>
+                    <p>17 March 2026</p>
+                    <p className="time">2:30 PM</p>
+                    <p className="time">3:30 PM</p>
+                    <div className="action-group">
+                      <button 
+                        className={`action-btn ${selectedMeeting === "A" ? "active" : ""}`} 
+                        onClick={() => handleSelectMeeting("A")}
                       >
+                        {selectedMeeting === "A" ? "Deselect" : "Approve"}
+                      </button>
+                      <span className={`status-badge ${selectedMeeting === "A" ? "approved" : "pending"}`}>
+                        {selectedMeeting === "A" ? "APPROVED" : "PENDING"}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="grid-row">
+                    <p className="highlight">Horizon Suite</p>
+                    <p>19 March 2026</p>
+                    <p className="time">8:30 AM</p>
+                    <p className="time">9:30 AM</p>
+                    <div className="action-group">
+                      <button 
+                        className={`action-btn ${selectedMeeting === "B" ? "active" : ""}`} 
+                        onClick={() => handleSelectMeeting("B")}
+                      >
+                        {selectedMeeting === "B" ? "Deselect" : "Approve"}
+                      </button>
+                      <span className={`status-badge ${selectedMeeting === "B" ? "approved" : "pending"}`}>
+                        {selectedMeeting === "B" ? "APPROVED" : "PENDING"}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="grid-row">
+                    <p className="highlight">Zenith Workspace</p>
+                    <p>21 March 2026</p>
+                    <p className="time">9:30 AM</p>
+                    <p className="time">10:30 AM</p>
+                    <div className="action-group">
+                      <button 
+                        className={`action-btn ${selectedMeeting === "C" ? "active" : ""}`} 
+                        onClick={() => handleSelectMeeting("C")}
+                      >
+                        {selectedMeeting === "C" ? "Deselect" : "Approve"}
+                      </button>
+                      <span className={`status-badge ${selectedMeeting === "C" ? "approved" : "pending"}`}>
+                        {selectedMeeting === "C" ? "APPROVED" : "PENDING"}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* Spaces Section */}
+            <section id="Spaces" className="content-section">
+              <header className="section-header">
+                <h1>Spaces</h1>
+                <p className="subtitle">Discover the perfect environment for your team's needs.</p>
+              </header>
+
+              <div className="cards-container">
+                <article className="space-card">
+                  <div className="card-image-wrapper">
+                    <img src={img} alt="Nexus Boardroom" />
+                    <div className="card-badge">Premium</div>
+                  </div>
+                  <div className="card-content">
+                    <h3>Nexus Boardroom</h3>
+                    <p className="space-desc">
+                      State-of-the-art acoustic paneling and panoramic city views for executive meetings.
+                    </p>
+                    <div className="space-specs">
+                      <div className="spec-item">
+                        <span className="spec-label">Level</span>
+                        <span className="spec-value">14th Floor</span>
+                      </div>
+                      <div className="spec-item">
+                        <span className="spec-label">Seats</span>
+                        <span className="spec-value">12 Pax</span>
+                      </div>
+                      <div className="spec-item full-width">
+                        <span className="spec-label">Tech</span>
+                        <span className="spec-value">4K Display, Polycom, VR</span>
+                      </div>
+                    </div>
+                    <button className="reserve-btn">Reserve Space</button>
+                  </div>
+                </article>
+
+                <article className="space-card">
+                  <div className="card-image-wrapper">
+                    <img src={img1} alt="Horizon Suite" />
+                  </div>
+                  <div className="card-content">
+                    <h3>Horizon Suite</h3>
+                    <p className="space-desc">
+                      A flexible, open-plan collaborative space meant to inspire creativity and discussion.
+                    </p>
+                    <div className="space-specs">
+                      <div className="spec-item">
+                        <span className="spec-label">Level</span>
+                        <span className="spec-value">10th Floor</span>
+                      </div>
+                      <div className="spec-item">
+                        <span className="spec-label">Seats</span>
+                        <span className="spec-value">25 Pax</span>
+                      </div>
+                      <div className="spec-item full-width">
+                        <span className="spec-label">Tech</span>
+                        <span className="spec-value">Smartboards, Projector</span>
+                      </div>
+                    </div>
+                    <button className="reserve-btn">Reserve Space</button>
+                  </div>
+                </article>
+
+                <article className="space-card">
+                  <div className="card-image-wrapper">
+                    <img src={img2} alt="Zenith Workspace" />
+                  </div>
+                  <div className="card-content">
+                    <h3>Zenith Workspace</h3>
+                    <p className="space-desc">
+                      Intimate, soundproofed pods ideal for focused 1-on-1s or deep work sessions.
+                    </p>
+                    <div className="space-specs">
+                      <div className="spec-item">
+                        <span className="spec-label">Level</span>
+                        <span className="spec-value">9th Floor</span>
+                      </div>
+                      <div className="spec-item">
+                        <span className="spec-label">Seats</span>
+                        <span className="spec-value">4 Pax</span>
+                      </div>
+                      <div className="spec-item full-width">
+                        <span className="spec-label">Tech</span>
+                        <span className="spec-value">Dual Monitors, Whiteboard</span>
+                      </div>
+                    </div>
+                    <button className="reserve-btn">Reserve Space</button>
+                  </div>
+                </article>
+              </div>
+            </section>
+
+            {/* Reservations Section */}
+            <section id="Reservations" className="content-section">
+              <header className="section-header">
+                <h1>Reservations</h1>
+                <p className="subtitle">Track and manage your past and future bookings.</p>
+              </header>
+              <div className="table-container-wrapper">
+                <div className="table-top-bar">
+                  <h2>Log History</h2>
+                  <div className="search-input-wrapper">
+                    <span className="search-icon">🔍</span>
+                    <input type="text" placeholder="Search spaces or dates..." />
+                  </div>
+                </div>
+                <div className="modern-table-wrapper">
+                  <table className="modern-table">
+                    <thead>
+                      <tr>
+                        <th>Space Name</th>
+                        <th>Date</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td className="fw-medium">Nexus Boardroom</td>
+                        <td>23 August 2026</td>
+                        <td className="time-col">2:00 PM</td>
+                        <td className="time-col">3:00 PM</td>
+                        <td><span className="pill success">Completed</span></td>
+                      </tr>
+                      <tr>
+                        <td className="fw-medium">Apollo Studio</td>
+                        <td>13 July 2026</td>
+                        <td className="time-col">3:00 PM</td>
+                        <td className="time-col">4:00 PM</td>
+                        <td><span className="pill danger">Cancelled</span></td>
+                      </tr>
+                      <tr>
+                        <td className="fw-medium">Nexus Boardroom</td>
+                        <td>2 July 2026</td>
+                        <td className="time-col">4:00 PM</td>
+                        <td className="time-col">5:00 PM</td>
+                        <td><span className="pill success">Completed</span></td>
+                      </tr>
+                      <tr>
+                        <td className="fw-medium">Orion Lounge</td>
+                        <td>15 June 2026</td>
+                        <td className="time-col">10:00 AM</td>
+                        <td className="time-col">11:30 AM</td>
+                        <td><span className="pill success">Completed</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+
+            {/* Support Section */}
+            <section id="Support" className="content-section">
+              <header className="section-header">
+                <h1>Support Center</h1>
+                <p className="subtitle">Encountered an issue with a space? Let us know.</p>
+              </header>
+              
+              <div className="support-banner">
+                <div className="banner-content">
+                  <h3>Need Assistance?</h3>
+                  <p>Our facilities team is available 24/7 to resolve workplace issues immediately.</p>
+                </div>
+                <button className="primary-action-btn" onClick={() => setShowSupportForm(true)}>
+                  Submit a Ticket
+                </button>
+              </div>
+
+              {showSupportForm && (
+                <div className="modal-backdrop" onClick={() => setShowSupportForm(false)}>
+                  <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                    <div className="modal-header">
+                      <h2>Create Support Ticket</h2>
+                      <button className="close-modal-btn" onClick={() => setShowSupportForm(false)}>
                         ✕
                       </button>
                     </div>
-
-                    <div className="report-form">
-                      <label>Complaint Type</label>
-
-                      <div className="complaints">
-                        <label>
-                          <input type="checkbox" /> Room Not Clean
-                        </label>
-                        <label>
-                          <input type="checkbox" /> Equipment Not Working
-                        </label>
-                        <label>
-                          <input type="checkbox" /> Booking Problem
-                        </label>
-                        <label>
-                          <input type="checkbox" /> Other
-                        </label>
+                    <div className="modal-body">
+                      <div className="form-group">
+                        <label>Issue Category</label>
+                        <div className="checkbox-grid">
+                          <label className="checkbox-label">
+                            <input type="checkbox" /> <span>Cleanliness</span>
+                          </label>
+                          <label className="checkbox-label">
+                            <input type="checkbox" /> <span>A/V Equipment Failure</span>
+                          </label>
+                          <label className="checkbox-label">
+                            <input type="checkbox" /> <span>Scheduling Conflict</span>
+                          </label>
+                          <label className="checkbox-label">
+                            <input type="checkbox" /> <span>HVAC / Temperature</span>
+                          </label>
+                          <label className="checkbox-label">
+                            <input type="checkbox" /> <span>Other</span>
+                          </label>
+                        </div>
                       </div>
-
-                      <label>Description</label>
-
-                      <textarea
-                        placeholder="Write your complaint here..."
-                        rows="4"
-                      ></textarea>
-
-                      <button className="submit-report" onClick={()=>setShowReport(false)}>Submit Report</button>
+                      <div className="form-group">
+                        <label>Additional Details</label>
+                        <textarea
+                          placeholder="Please provide specific details to help us resolve the issue quickly..."
+                          rows="5"
+                        ></textarea>
+                      </div>
+                    </div>
+                    <div className="modal-footer">
+                      <button className="cancel-btn" onClick={() => setShowSupportForm(false)}>Cancel</button>
+                      <button className="submit-btn" onClick={() => setShowSupportForm(false)}>Submit Ticket</button>
                     </div>
                   </div>
                 </div>
               )}
-            </div>
+            </section>
           </div>
-        </div>
+        </main>
       </div>
     </>
   );
