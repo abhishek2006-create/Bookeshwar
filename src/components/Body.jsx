@@ -46,7 +46,7 @@ export default function Body() {
 
         <main className="app-content">
           <div className="content-wrapper">
-            {/* Overview Section */}
+
             <section id="Overview" className="content-section">
               <header className="section-header">
                 <h1>Overview</h1>
@@ -117,7 +117,6 @@ export default function Body() {
               </div>
             </section>
 
-            {/* Spaces Section */}
             <section id="Spaces" className="content-section">
               <header className="section-header">
                 <h1>Spaces</h1>
@@ -209,7 +208,6 @@ export default function Body() {
               </div>
             </section>
 
-            {/* Reservations Section */}
             <section id="Reservations" className="content-section">
               <header className="section-header">
                 <h1>Reservations</h1>
@@ -269,7 +267,6 @@ export default function Body() {
               </div>
             </section>
 
-            {/* Support Section */}
             <section id="Support" className="content-section">
               <header className="section-header">
                 <h1>Support Center</h1>
